@@ -1,0 +1,320 @@
+[
+  {
+    "number" : 1,
+    "defaultFunc" : "err",
+    "instructions" :
+     [
+       {"mark" : "int", "beta" : 2, "stackNum": null, "func" : null},
+       {"mark" : "float", "beta" : 2, "stackNum": null, "func" : null}
+     ]
+  },
+
+  {
+    "number" : 2,
+    "defaultFunc" : "err",
+    "instructions" :
+    [
+      {"mark" : "id", "beta" : 3, "stackNum": null, "func" : null}
+    ]
+  },
+
+  {
+    "number" : 3,
+    "defaultFunc" : "err",
+    "instructions" :
+    [
+      {"mark" : ",", "beta" : 2, "stackNum": null, "func" : null},
+      {"mark" : "{", "beta" : 4, "stackNum": null, "func" : null}
+    ]
+  },
+  {
+    "number" : 4,
+    "defaultFunc" : "err",
+    "instructions" :
+    [
+      {"mark" : "¶", "beta" : 41, "stackNum": 5, "func" : null}
+    ]
+  },
+
+  {
+    "number" : 5,
+    "defaultFunc" : "err",
+    "instructions" :
+    [
+      {"mark" : "¶", "beta" : 41, "stackNum": 5, "func" : null},
+      {"mark" : "}", "beta" : null, "stackNum": null, "func" : "exit"}
+    ]
+  },
+
+  {
+    "number" : 41,
+    "defaultFunc" : "err",
+    "instructions" :
+    [
+      {"mark" : "cin", "beta" : 42, "stackNum": null, "func" : null},
+      {"mark" : "cout", "beta" : 45, "stackNum": null, "func" : null},
+      {"mark" : "for", "beta" : 48, "stackNum": null, "func" : null},
+      {"mark" : "id", "beta" : 56, "stackNum": null, "func" : null},
+      {"mark" : "if", "beta" : 591, "stackNum": 54, "func" : null}
+    ]
+  },
+
+  {
+    "number" : 42,
+    "defaultFunc" : "err",
+    "instructions" :
+    [
+      {"mark" : ">>", "beta" : 43, "stackNum": null, "func" : null}
+    ]
+  },
+
+  {
+    "number" : 43,
+    "defaultFunc" : "err",
+    "instructions" :
+    [
+      {"mark" : "id", "beta" : 44, "stackNum": null, "func" : null}
+    ]
+  },
+
+  {
+    "number" : 44,
+    "defaultFunc" : "exit",
+    "instructions" :
+    [
+      {"mark" : ">>", "beta" : 43, "stackNum": null, "func" : null}
+    ]
+  },
+
+  {
+    "number" : 45,
+    "defaultFunc" : "err",
+    "instructions" :
+    [
+      {"mark" : "<<", "beta" : 46, "stackNum": null, "func" : null}
+    ]
+  },
+
+  {
+    "number" : 46,
+    "defaultFunc" : "err",
+    "instructions" :
+    [
+      {"mark" : "id", "beta" : 47, "stackNum": null, "func" : null},
+      {"mark" : "con", "beta" : 47, "stackNum": null, "func" : null}
+    ]
+  },
+
+  {
+    "number" : 47,
+    "defaultFunc" : "exit",
+    "instructions" :
+    [
+      {"mark" : "<<", "beta" : 46, "stackNum": null, "func" : null}
+    ]
+  },
+
+  {
+    "number" : 48,
+    "defaultFunc" : "err",
+    "instructions" :
+    [
+      {"mark" : "id", "beta" : 49, "stackNum": null, "func" : null}
+    ]
+  },
+
+  {
+    "number" : 49,
+    "defaultFunc" : "err",
+    "instructions" :
+    [
+      {"mark" : "=", "beta" : 491, "stackNum": 50, "func" : null}
+    ]
+  },
+
+  {
+    "number" : 50,
+    "defaultFunc" : "err",
+    "instructions" :
+    [
+      {"mark" : "by", "beta" : 491, "stackNum": 51, "func" : null}
+    ]
+  },
+
+  {
+    "number" : 51,
+    "defaultFunc" : "err",
+    "instructions" :
+    [
+      {"mark" : "to", "beta" : 491, "stackNum": 52, "func" : null}
+    ]
+  },
+
+  {
+    "number" : 52,
+    "defaultFunc" : "err",
+    "instructions" :
+    [
+      {"mark" : "do", "beta" : 41, "stackNum": 53, "func" : null}
+    ]
+  },
+
+  {
+    "number" : 53,
+    "defaultFunc" : "err",
+    "instructions" :
+    [
+      {"mark" : "¶", "beta" : 41, "stackNum": 53, "func" : null},
+      {"mark" : "rof", "beta" : null, "stackNum": null, "func" : "exit"}
+    ]
+  },
+
+  {
+    "number" : 54,
+    "defaultFunc" : "err",
+    "instructions" :
+    [
+      {"mark" : "then", "beta" : 41, "stackNum": 55, "func" : null}
+    ]
+  },
+
+  {
+    "number" : 55,
+    "defaultFunc" : "err",
+    "instructions" :
+    [
+      {"mark" : "¶", "beta" : 41, "stackNum": 55, "func" : null},
+      {"mark" : "fi", "beta" : null, "stackNum": null, "func" : "exit"}
+    ]
+  },
+
+  {
+    "number" : 56,
+    "defaultFunc" : "err",
+    "instructions" :
+    [
+      {"mark" : "=", "beta" : 57, "stackNum": null, "func" : null}
+    ]
+  },
+
+  {
+    "number" : 57,
+    "defaultFunc" : "<491>,61",
+    "instructions" :
+    [
+      {"mark" : "?", "beta" : 591, "stackNum": 58, "func" : null}
+    ]
+  },
+
+  {
+    "number" : 58,
+    "defaultFunc" : "err",
+    "instructions" :
+    [
+      {"mark" : "?", "beta" : 491, "stackNum": 59, "func" : null}
+    ]
+  },
+
+  {
+    "number" : 59,
+    "defaultFunc" : "err",
+    "instructions" :
+    [
+      {"mark" : ":", "beta" : 491, "stackNum": 60, "func" : null}
+    ]
+  },
+
+  {
+    "number" : 60,
+    "defaultFunc" : "exit",
+    "instructions" :
+    [
+      {"mark" : "", "beta" : null, "stackNum": null, "func" : "exit"}
+    ]
+  },
+
+  {
+    "number" : 61,
+    "defaultFunc" : "exit",
+    "instructions" :
+    [
+      {"mark" : "", "beta" : null, "stackNum": null, "func" : "exit"}
+    ]
+  },
+
+  {
+    "number" : 491,
+    "defaultFunc" : "err",
+    "instructions" :
+    [
+      {"mark" : "id", "beta" : 492, "stackNum": null, "func" : null},
+      {"mark" : "con", "beta" : 492, "stackNum": null, "func" : null},
+      {"mark" : "(", "beta" : 491, "stackNum": 493, "func" : null}
+    ]
+  },
+
+  {
+    "number" : 492,
+    "defaultFunc" : "exit",
+    "instructions" :
+    [
+      {"mark" : "+", "beta" : 491, "stackNum": null, "func" : null},
+      {"mark" : "-", "beta" : 491, "stackNum": null, "func" : null},
+      {"mark" : "*", "beta" : 491, "stackNum": null, "func" : null},
+      {"mark" : "/", "beta" : 491, "stackNum": null, "func" : null}
+    ]
+  },
+
+  {
+    "number" : 493,
+    "defaultFunc" : "err",
+    "instructions" :
+    [
+      {"mark" : ")", "beta" : 492, "stackNum": null, "func" : null}
+    ]
+  },
+
+  {
+    "number" : 591,
+    "defaultFunc" : "<491>,592",
+    "instructions" :
+    [
+      {"mark" : "NOT", "beta" : 591, "stackNum": null, "func" : null},
+      {"mark" : "[", "beta" : 591, "stackNum": 594, "func" : null}
+    ]
+  },
+
+  {
+    "number" : 592,
+    "defaultFunc" : "err",
+    "instructions" :
+    [
+      {"mark" : ">", "beta" : 491, "stackNum": 593, "func" : null},
+      {"mark" : ">=", "beta" : 491, "stackNum": 593, "func" : null},
+      {"mark" : "<", "beta" : 491, "stackNum": 593, "func" : null},
+      {"mark" : "<=", "beta" : 491, "stackNum": 593, "func" : null},
+      {"mark" : "==", "beta" : 491, "stackNum": 593, "func" : null},
+      {"mark" : "!=", "beta" : 491, "stackNum": 593, "func" : null}
+    ]
+  },
+
+  {
+    "number" : 593,
+    "defaultFunc" : "exit",
+    "instructions" :
+    [
+      {"mark" : "OR", "beta" : 591, "stackNum": null, "func" : null},
+      {"mark" : "AND", "beta" : 591, "stackNum": null, "func" : null}
+    ]
+  },
+
+  {
+    "number" : 594,
+    "defaultFunc" : "err",
+    "instructions" :
+    [
+      {"mark" : "]", "beta" : 593, "stackNum": null, "func" : null}
+    ]
+  }
+
+]
