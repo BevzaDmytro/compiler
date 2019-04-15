@@ -1,3 +1,5 @@
 int a,b,c, ids{
-b = a*(a+b)/(a-b)
-a=?a>b OR a==b ? a: b}
+c = a + b
+for a = 1 by 1 to 5 do a = a + 1
+if a > b then a = b fi rof
+a = b}

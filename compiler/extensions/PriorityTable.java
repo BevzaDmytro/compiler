@@ -11,14 +11,24 @@ public class PriorityTable {
         this.createPriorities();
     }
 
+    public Map<String, Integer> getPriorities() {
+        return priorities;
+    }
+
     private void createPriorities() {
         this.setPriorities("for",0);
+//        this.setPriorities("int",0);
+//        this.setPriorities("float",0);
         this.setPriorities("(",0);
         this.setPriorities("[",0);
         this.setPriorities("if",0);
+        this.setPriorities("{",0);
 
         this.setPriorities(")",1);
+        this.setPriorities("}",1);
         this.setPriorities("]",1);
+        this.setPriorities("int",1);
+        this.setPriorities("float",1);
         this.setPriorities("fi",1);
         this.setPriorities("then",1);
         this.setPriorities("rof",1);

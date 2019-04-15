@@ -2,6 +2,7 @@ package compiler;
 
 import compiler.analyzers.Parser;
 import compiler.analyzers.*;
+import compiler.extensions.PriorityTable;
 import compiler.views.MyFrame;
 
 import java.io.BufferedReader;
@@ -33,7 +34,6 @@ public class Controller {
 
 
     public void execute(){
-
         frame.input();
     }
 
@@ -45,6 +45,7 @@ public class Controller {
             e.printStackTrace();
         }
         this.analyzeSyntax();
+        this.makePoliz();
     }
     public void analyzeText(String text){
         this.parser = new Parser();
@@ -65,6 +66,11 @@ public class Controller {
         }
         frame.show(this.getParser().getLexemsTable().getLexems(), this.getParser().getIdentificatorsTable().getLexems(), this.getParser().getConstantsTable().getLexems(),syntaxAnalyzer2.getConfigurationView(),syntaxAnalyzer2.getStateController().getStates());
 
+    }
+
+    private void makePoliz(){
+     PolizCreator polizCreator = new PolizCreator(this.getParser().getLexemsTable(),new PriorityTable());
+     polizCreator.run();
     }
 
 }
