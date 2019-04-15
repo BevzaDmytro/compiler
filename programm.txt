@@ -2,5 +2,6 @@ int a,b,c, ids{
 cout << a
 c = a + b
 for a = 1 by 1 to 5 do a = a + 1
-if a > b then a = b fi rof
+if a > b then a = b
+if b > 5 then cout<< 1 fi fi rof
 a = b}
