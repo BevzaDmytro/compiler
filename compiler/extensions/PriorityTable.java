@@ -23,7 +23,12 @@ public class PriorityTable {
         this.setPriorities("[",0);
         this.setPriorities("if",0);
         this.setPriorities("{",0);
+        this.setPriorities("@",0);
 
+
+
+        this.setPriorities("?",1);
+        this.setPriorities(":",1);
         this.setPriorities(")",1);
         this.setPriorities("}",1);
         this.setPriorities("]",1);
@@ -36,12 +41,14 @@ public class PriorityTable {
         this.setPriorities("by",1);
         this.setPriorities("to",1);
         this.setPriorities("do",1);
-        this.setPriorities("cout",1);
-        this.setPriorities("cin",1);
+        this.setPriorities("cout",2);
+        this.setPriorities("cin",2);
 //        this.setPriorities("cin",1);
         this.setPriorities("¶",1);
 
         this.setPriorities("=",2);
+        this.setPriorities("<<",2);
+        this.setPriorities(">>",2);
 
         this.setPriorities("OR",3);
         this.setPriorities("AND",4);

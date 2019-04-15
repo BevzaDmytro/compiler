@@ -55,6 +55,7 @@ public class Controller {
             e.printStackTrace();
         }
         this.analyzeSyntax();
+        this.makePoliz();
     }
 
     private void analyzeSyntax(){
@@ -69,7 +70,7 @@ public class Controller {
     }
 
     private void makePoliz(){
-     PolizCreator polizCreator = new PolizCreator(this.getParser().getLexemsTable(),new PriorityTable());
+     PolizCreator polizCreator = new PolizCreator(this.getParser().getLexemsTable(),new PriorityTable(), this.frame);
      polizCreator.run();
     }
 

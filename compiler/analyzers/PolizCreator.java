@@ -3,6 +3,7 @@ package compiler.analyzers;
 import compiler.extensions.Lexem;
 import compiler.extensions.LexemsTable;
 import compiler.extensions.PriorityTable;
+import compiler.views.MyFrame;
 
 import java.util.ArrayList;
 import java.util.Stack;
@@ -21,6 +22,7 @@ public class PolizCreator {
     private int rCounter = 1;
     private Stack <String> cycleCounters;
     private boolean cycle = false;
+    private MyFrame frame;
 
     public PolizCreator(LexemsTable lexems, PriorityTable priorityTable) {
         this.lexems = lexems;
@@ -31,6 +33,18 @@ public class PolizCreator {
         this.labelsStack =  new Stack<>();
         this.r =  new Stack<>();
         this.cycleCounters =  new Stack<>();
+    }
+
+    public PolizCreator(LexemsTable lexemsTable, PriorityTable priorityTable, MyFrame frame) {
+        this.lexems = lexemsTable;
+        this.priorityTable = priorityTable;
+        this.stack = new Stack<>();
+        this.poliz = new ArrayList<>();
+        this.labels = new ArrayList<>();
+        this.labelsStack =  new Stack<>();
+        this.r =  new Stack<>();
+        this.cycleCounters =  new Stack<>();
+        this.frame = frame;
     }
 
     public void run(){
@@ -73,8 +87,17 @@ public class PolizCreator {
                 this.poliz.add(stack.pop());
         }
 
-        String polizResult = this.poliz.toString();
+        String polizResult = this.getPolizAsString();
+        this.frame.setStatus("Poliz: \n" +polizResult);
         System.out.println(polizResult);
+    }
+
+    private String getPolizAsString(){
+        StringBuilder plz = new StringBuilder();
+        for (String elem:this.poliz      ) {
+            plz.append(elem).append(" ");
+        }
+        return plz.toString();
     }
 
     private boolean lexemOnDelete(String name) {
@@ -83,19 +106,32 @@ public class PolizCreator {
 
     private void pushOperationIntoStack(String name) {
         if(name.equals("{") || name.equals("}")) return;
+        if(name.equals("<<") || name.equals(">>")) return;
+
         if(this.isKeyword(name)){
             //по ключовим словам генеруємо мітки,поліз
             if(isConditional(name)){
                 this.makePolizFromConditional(name);
             }
-            if(isCycle(name)){
+            else if(isCycle(name)){
                 this.makePolizFromCycle(name);
             }
+            else if(isTern(name)){
+                this.makePolizFromTern(name);
+            }
+            else{
+                this.stack.push(name);
+            }
+
         }
         else{
             if(name.equals("¶")) return;
             this.stack.push(name);
         }
+    }
+
+    private boolean isTern(String name) {
+        return name.equals("@") || name.equals("?") || name.equals(":");
     }
 
     private void makePolizFromCycle(String name) {
@@ -113,7 +149,7 @@ public class PolizCreator {
             // Rj 1 = Mi : Rj+1
             String m3 = this.labelsStack.pop();
             String m2 = this.labelsStack.pop();
-            String toPoliz = "r" + this.rCounter + "1 = " + this.labelsStack.peek() + ":";
+            String toPoliz = "r" + this.rCounter + " 1 = " + this.labelsStack.peek() + ":";
             this.r.push("r"+this.rCounter);
             this.rCounter++;
             this.r.push("r"+this.rCounter);
@@ -129,7 +165,7 @@ public class PolizCreator {
 
             String r2 = this.r.pop();
             String m3 = this.labelsStack.pop();
-            String toPoliz = "= " + r.peek() + " 0 == " + this.labelsStack.peek() + " УПХ " + this.cycleCounters.peek() + " " + this.cycleCounters.peek() + r2 + " + = " + this.labelsStack.peek() +
+            String toPoliz = "= " + r.peek() + " 0 == " + this.labelsStack.peek() + " УПХ " + this.cycleCounters.peek() + " " + this.cycleCounters.peek()+" " + r2 + " + = " + this.labelsStack.peek() +
                     ": " + this.r.peek() + " 0 = " + this.cycleCounters.peek();
             this.poliz.add(toPoliz);
 
@@ -158,7 +194,7 @@ public class PolizCreator {
     }
 
     private boolean isKeyword(String name) {
-        return name.equals("for") || name.equals("to") || name.equals("by") || name.equals("do")|| name.equals("while")|| name.equals("rof") || name.equals("if") || name.equals("then") || name.equals("fi");
+        return name.equals("for") || name.equals("to") || name.equals("by") || name.equals("do")|| name.equals("while")|| name.equals("rof") || name.equals("if") || name.equals("then") || name.equals("fi") || name.equals("cout") || name.equals("cin") || name.equals("@") || name.equals("?") || name.equals(":");
     }
 
     private void makePolizFromOperation() {
@@ -166,6 +202,13 @@ public class PolizCreator {
         if(!isKeyword(possiblePoliz)) {
             this.poliz.add(possiblePoliz);
         }
+        else if (possiblePoliz.equals("cout")){
+            this.poliz.add("PRINT");
+        }
+        else if (possiblePoliz.equals("cin")){
+            this.poliz.add("ENTERING");
+        }
+
 //        if(isConditional(pop)){
 //            this.makePolizFromConditional(pop);
 //        }
@@ -191,6 +234,28 @@ public class PolizCreator {
         if(name.equals("fi")){
             this.poliz.add(this.labelsStack.pop() + ":");
             this.stack.pop();
+        }
+    }
+
+    private void makePolizFromTern(String name) {
+        // if a > b then a = b fi => ab> m1 УПХ ab= m1:
+        if(name.equals("@")){
+//            this.poliz.add("");
+//            this.stack.push(name + " m"+this.labelNum );
+            this.stack.push(name  );
+            this.labels.add("m"+this.labelNum);
+            this.labelsStack.push("m"+this.labelNum);
+            this.labelNum++;
+//            this.labelsStack.push("m"+this.labelNum);
+//            this.labelNum++;
+        }
+        if(name.equals("?")){
+            this.poliz.add(this.labelsStack.peek() + "УПХ");
+        }
+        if(name.equals(":")){
+//            this.poliz.add(this.labelsStack.pop() + ":");
+            this.stack.pop();
+            this.poliz.add(this.labelsStack.pop() +":");
         }
     }
 

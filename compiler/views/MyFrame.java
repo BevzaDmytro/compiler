@@ -152,15 +152,24 @@ public class MyFrame {
         button2.addActionListener(listener);
 
 
+//        in.setBounds(10,10,500,300);
         in.setBounds(10,10,500,300);
 
-        status.setBounds(530, 10, 150, 300);
-        status.setPreferredSize(new Dimension(150, 300));
+//        status.setBounds(530, 10, 150, 300);
+        status.setBounds(5, 320, 500, 150);
+//        status.setPreferredSize(new Dimension(150, 300));
+        status.setPreferredSize(new Dimension(500, 150));
         status.setLineWrap(true);
-        button1.setBounds(5,320,70,15);
-        button2.setBounds(5,360,70,15);
-        browse.setBounds(90,320,100,30);
-        insertButton.setBounds(90,360,100,30);
+//        button1.setBounds(5,320,70,15);
+//        button2.setBounds(5,360,70,15);
+//        browse.setBounds(90,320,100,30);
+//        insertButton.setBounds(90,360,100,30);
+        button1.setBounds(530,10,70,15);
+        button2.setBounds(530,50,70,15);
+        browse.setBounds(600,10,100,30);
+        insertButton.setBounds(600,50,100,30);
+
+
         input.add(status);
         input.add(in);
         input.add(insertButton);

@@ -202,7 +202,7 @@
     "defaultFunc" : "<491>,61",
     "instructions" :
     [
-      {"mark" : "?", "beta" : 591, "stackNum": 58, "func" : null}
+      {"mark" : "@", "beta" : 591, "stackNum": 58, "func" : null}
     ]
   },
 
