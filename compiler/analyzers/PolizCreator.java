@@ -6,9 +6,9 @@ import compiler.extensions.PriorityTable;
 import compiler.views.MyFrame;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Stack;
-
-import static javax.lang.model.SourceVersion.isKeyword;
 
 public class PolizCreator {
     private LexemsTable lexems;
@@ -45,6 +45,15 @@ public class PolizCreator {
         this.r =  new Stack<>();
         this.cycleCounters =  new Stack<>();
         this.frame = frame;
+    }
+
+
+    public ArrayList<String> getPolizAsArray(){
+
+        ArrayList<String> listOfStrings = new ArrayList<String>();
+
+        Collections.addAll(listOfStrings, this.getPolizAsString().split(" +"));
+        return listOfStrings;
     }
 
     public void run(){
@@ -88,7 +97,7 @@ public class PolizCreator {
         }
 
         String polizResult = this.getPolizAsString();
-        this.frame.setStatus("Poliz: \n" +polizResult);
+//        this.frame.setStatus("Poliz: \n" +polizResult);
         System.out.println(polizResult);
     }
 
@@ -149,7 +158,7 @@ public class PolizCreator {
             // Rj 1 = Mi : Rj+1
             String m3 = this.labelsStack.pop();
             String m2 = this.labelsStack.pop();
-            String toPoliz = "r" + this.rCounter + " 1 = " + this.labelsStack.peek() + ":";
+            String toPoliz = "r" + this.rCounter + " 1 = " + this.labelsStack.peek() + ": ";
             this.r.push("r"+this.rCounter);
             this.rCounter++;
             this.r.push("r"+this.rCounter);
@@ -165,7 +174,7 @@ public class PolizCreator {
 
             String r2 = this.r.pop();
             String m3 = this.labelsStack.pop();
-            String toPoliz = "= " + r.peek() + " 0 == " + this.labelsStack.peek() + " УПХ " + this.cycleCounters.peek() + " " + this.cycleCounters.peek()+" " + r2 + " + = " + this.labelsStack.peek() +
+            String toPoliz = "= " + r.peek() + " 0 == " + this.labelsStack.peek() + "УПХ " + this.cycleCounters.peek() + " " + this.cycleCounters.peek()+" " + r2 + " + = " + this.labelsStack.peek() +
                     ": " + this.r.peek() + " 0 = " + this.cycleCounters.peek();
             this.poliz.add(toPoliz);
 
@@ -174,14 +183,14 @@ public class PolizCreator {
         }
         if(name.equals("do")){
             //  - Rj+1 * 0 <= Mi+2 УПХ
-            String toPoliz = " - " +this.r.peek() + " * 0 <= " + this.labelsStack.peek() + " УПХ ";
+            String toPoliz = " - " +this.r.peek() + " * 0 <= " + this.labelsStack.peek() + "УПХ ";
             this.poliz.add(toPoliz);
         }
         if(name.equals("rof")){
             // Mi БП Mi+2:
             String m3 = this.labelsStack.pop();
             String m2 = this.labelsStack.pop();
-            String toPoliz = this.labelsStack.pop() + " БП " + m3+":";
+            String toPoliz = this.labelsStack.pop() + "БП " + m3+": ";
             this.poliz.add(toPoliz);
             this.r.pop();
             this.r.pop();
@@ -206,7 +215,7 @@ public class PolizCreator {
             this.poliz.add("PRINT");
         }
         else if (possiblePoliz.equals("cin")){
-            this.poliz.add("ENTERING");
+            this.poliz.add("INPUT");
         }
 
 //        if(isConditional(pop)){
@@ -232,7 +241,7 @@ public class PolizCreator {
             this.poliz.add(this.labelsStack.peek() + "УПХ");
         }
         if(name.equals("fi")){
-            this.poliz.add(this.labelsStack.pop() + ":");
+            this.poliz.add(this.labelsStack.pop() + ": ");
             this.stack.pop();
         }
     }
@@ -255,7 +264,7 @@ public class PolizCreator {
         if(name.equals(":")){
 //            this.poliz.add(this.labelsStack.pop() + ":");
             this.stack.pop();
-            this.poliz.add(this.labelsStack.pop() +":");
+            this.poliz.add(this.labelsStack.pop() +": ");
         }
     }
 

@@ -64,6 +64,12 @@ public class MyFrame {
         this.status.setText(status);
         this.panel.repaint();
     }
+    public void printMess(String message){
+        String string = this.status.getText();
+        string += "\n" + message;
+        this.status.setText(string);
+        this.panel.repaint();
+    }
 
 
     public void input(){

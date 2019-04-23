@@ -27,6 +27,13 @@ public class IdentificatorsTable {
         return false;
     }
 
+    public boolean containsVariable(String name){
+        for ( Lexem currentLex : this.lexems ) {
+            if(currentLex.getName().equals(name)) return  true;
+        }
+        return false;
+    }
+
     public int getNumberOfLexem(Lexem lexem){
         int i = 0;
         for (Lexem lex : this.lexems ) {
