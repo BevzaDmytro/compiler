@@ -23,6 +23,8 @@ public class PolizCreator {
     private Stack <String> cycleCounters;
     private boolean cycle = false;
     private MyFrame frame;
+    private String ternExp;
+    private boolean tern;
 
     public PolizCreator(LexemsTable lexems, PriorityTable priorityTable) {
         this.lexems = lexems;
@@ -64,6 +66,7 @@ public class PolizCreator {
 
         for (Lexem currentLexem : this.lexems.getLexems() ) {
             if(this.lexemOnDelete(currentLexem.getName())){
+
                 continue;
             }
             if(this.checkIdOrConst(currentLexem)){
@@ -72,6 +75,7 @@ public class PolizCreator {
                     this.cycle = false;
                 }
                 this.poliz.add(currentLexem.getName());
+
                 continue;
             }
 //            else if(this.checkIfOperation(currentLexem.getName())){
@@ -110,7 +114,7 @@ public class PolizCreator {
     }
 
     private boolean lexemOnDelete(String name) {
-        return /*name.equals("{") || name.equals("}") ||*/ name.equals(",");
+        return /*name.equals("{") || name.equals("}") ||*/ name.equals(",")/* || name.equals("¶")*/;
     }
 
     private void pushOperationIntoStack(String name) {
@@ -134,7 +138,14 @@ public class PolizCreator {
 
         }
         else{
-            if(name.equals("¶")) return;
+            if(name.equals("¶")){
+                if(tern){
+                    this.poliz.add("=");
+                    this.poliz.add(this.labelsStack.pop() +": ");
+                    tern = false;
+                }
+                return;
+            }
             this.stack.push(name);
         }
     }
@@ -218,9 +229,6 @@ public class PolizCreator {
             this.poliz.add("INPUT");
         }
 
-//        if(isConditional(pop)){
-//            this.makePolizFromConditional(pop);
-//        }
 
         //перевірка на цикд
         //перевірка на тернарний оператор
@@ -247,24 +255,38 @@ public class PolizCreator {
     }
 
     private void makePolizFromTern(String name) {
-        // if a > b then a = b fi => ab> m1 УПХ ab= m1:
+
         if(name.equals("@")){
-//            this.poliz.add("");
-//            this.stack.push(name + " m"+this.labelNum );
             this.stack.push(name  );
             this.labels.add("m"+this.labelNum);
             this.labelsStack.push("m"+this.labelNum);
             this.labelNum++;
-//            this.labelsStack.push("m"+this.labelNum);
-//            this.labelNum++;
+
+
+             ternExp = this.poliz.get(this.poliz.size()-2) ;
+             this.poliz.remove(this.poliz.size()-1);
+             this.poliz.remove(this.poliz.size()-1);
         }
         if(name.equals("?")){
             this.poliz.add(this.labelsStack.peek() + "УПХ");
+            this.poliz.add(ternExp);
         }
         if(name.equals(":")){
-//            this.poliz.add(this.labelsStack.pop() + ":");
+            this.labels.add("m"+this.labelNum);
+            this.labelsStack.push("m"+this.labelNum);
+            this.labelNum++;
+
+            this.tern = true;
+            this.poliz.add("=");
+
+            this.poliz.add(this.labelsStack.peek() + "БП");
+
+            String label = this.labelsStack.pop();
+
             this.stack.pop();
             this.poliz.add(this.labelsStack.pop() +": ");
+            this.poliz.add(ternExp);
+            this.labelsStack.push(label);
         }
     }
 
@@ -274,17 +296,12 @@ public class PolizCreator {
 
     private boolean lastStackOperationHasLessPriority(String name, String peek) {
         return this.priorityTable.getPriorities().get(name) < this.priorityTable.getPriorities().get(peek);
-//        return false;
+
     }
 
-    private boolean checkIfOperation(String name) {
-//        return name.equals("+") ||
-        return false;
-    }
 
     private boolean checkIdOrConst(Lexem lexem) {
         return lexem.getCode() == 100 || lexem.getCode() == 101;
-//        return true;
     }
 
 }

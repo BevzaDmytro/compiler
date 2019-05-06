@@ -41,6 +41,7 @@ public class PolizHandler {
 //        JOptionPane jOptionPane = new JOptionPane();
         double result = - 99999;
         String element;
+        this.frame.setStatus(" ");
 
 //        ArrayList<String> currentPoliz = new ArrayList<>();
 //        currentPoliz.addAll(this.poliz);
@@ -55,9 +56,6 @@ public class PolizHandler {
             else {
                 if(this.isMathOperation(element)) {
 
-//                    if(element.matches("^\\D+$"))
-//                        element = this.askIdentificator(element);
-
                     String firstOperand;
                     String secondOperand;
                     Double sec = (double) -999;
@@ -65,24 +63,6 @@ public class PolizHandler {
 //                    Double first;
                     secondOperand = this.polizResult.pop();
                     firstOperand = this.polizResult.pop();
-//                    if(firstOperand.matches("^\\D+$")){
-//                        if(this.variales.get(firstOperand) != null){
-////                            first = Double.valueOf(firstOperand);
-//                            first = this.variales.get(firstOperand);
-//                        }
-//                    }
-//                    else first = Double.valueOf(firstOperand);
-
-
-
-
-//                    if(secondOperand.matches("^\\D+$")){
-//                        if(this.variales.get(secondOperand) != null){
-////                            sec = Double.valueOf(secondOperand);
-//                            sec = this.variales.get(secondOperand);
-//                        }
-//                    }
-//                    else sec = Double.valueOf(secondOperand);
 
                     first = this.getValueOfVariable(firstOperand);
                     sec = this.getValueOfVariable(secondOperand);
@@ -114,39 +94,43 @@ public class PolizHandler {
                 else if(this.isLogicalOperation(element)){
                     //без врахування and or not
                     // в якусь змінну записую тру або false, щоб потім по УПХ або бп піти в мітку
-                    String firstOperand;
-                    String secondOperand;
-                    Double sec = (double) -999;
-                    Double first = (double) -999;
+                    if(element.equals("OR") || element.equals("AND")){
+                        String first = this.polizResult.pop();
+                        String second = this.polizResult.pop();
+                        if(this.evaluateAndOr(first,element,second)){
+                            this.polizResult.push("true");
+                        }
+                        else{
+                            this.polizResult.push("false");
+                        }
+                    }
+                    else if(element.equals("NOT")){
+                        String exp = this.polizResult.pop();
+                        if(exp.equals("true")){
+                            this.polizResult.push("false");
+                        }
+                        else this.polizResult.push("true");
+                    }
+                    else {
+                        String firstOperand;
+                        String secondOperand;
+                        Double sec = (double) -999;
+                        Double first = (double) -999;
 //                    Double first;
-                    secondOperand = this.polizResult.pop();
-                    firstOperand = this.polizResult.pop();
-//                    if(firstOperand.matches("^\\D+$")){
-//                        if(this.variales.get(firstOperand) != null){
-////                            first = Double.valueOf(firstOperand);
-//                            first = this.variales.get(firstOperand);
-//                        }
-//                    }
-//                    else first = Double.valueOf(firstOperand);
-//
-//
-//                    if(secondOperand.matches("^\\D+$")){
-//                        if(this.variales.get(secondOperand) != null){
-////                            sec = Double.valueOf(secondOperand);
-//                            sec = this.variales.get(secondOperand);
-//                        }
-//                    }
-//                    else sec = Double.valueOf(secondOperand);
+                        secondOperand = this.polizResult.pop();
+                        firstOperand = this.polizResult.pop();
 
-                    first = this.getValueOfVariable(firstOperand);
-                    sec = this.getValueOfVariable(secondOperand);
 
-                    boolean label = this.evaluateLogicalExp(first, element, sec);
+                        first = this.getValueOfVariable(firstOperand);
+                        sec = this.getValueOfVariable(secondOperand);
+
+                        boolean label = this.evaluateLogicalExp(first, element, sec);
 //                    Double temp = this.calculateTwoOperands(first, element, sec);
-                    if(label)
-                    this.polizResult.push("true");
-                    else
-                        this.polizResult.push("false");
+                        if (label)
+                            this.polizResult.push("true");
+                        else
+                            this.polizResult.push("false");
+                    }
                 }
                 else if(this.isMoveToLabel(element)){
                     //перехід по БП або УПХ
@@ -202,6 +186,14 @@ public class PolizHandler {
 //        this.variales.clear();
 //        savePolizSteps();
         return result;
+    }
+
+    private boolean evaluateAndOr(String first, String element, String second) {
+        if(element.equals("AND")){
+            return Boolean.valueOf(first) && Boolean.valueOf(second);
+        }
+        else
+            return Boolean.valueOf(first) || Boolean.valueOf(second);
     }
 
     private Double getValueOfVariable(String firstOperand) {
@@ -267,7 +259,7 @@ public class PolizHandler {
     }
 
     private boolean isLogicalOperation(String element) {
-        return (element.equals(">") ||  element.equals("<") || element.equals(">=") || element.equals("<=") || element.equals("=="));
+        return (element.equals(">") ||  element.equals("<") || element.equals(">=") || element.equals("<=") || element.equals("==") || element.equals("OR") || element.equals("AND") || element.equals("NOT"));
     }
 
     private boolean isMathOperation(String element) {
