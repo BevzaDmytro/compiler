@@ -80,7 +80,7 @@ public class PolizCreator {
             }
 //            else if(this.checkIfOperation(currentLexem.getName())){
             else {
-                if(stack.empty()){
+                if(stack.empty() || currentLexem.getName().equals("(") || currentLexem.getName().equals("[")){
                     this.pushOperationIntoStack(currentLexem.getName());
 //                    stack.push(currentLexem.getName());
                 }
@@ -131,6 +131,9 @@ public class PolizCreator {
             }
             else if(isTern(name)){
                 this.makePolizFromTern(name);
+            }
+            else if(name.equals(")") || name.equals("]")){
+                this.stack.pop();
             }
             else{
                 this.stack.push(name);
@@ -214,7 +217,7 @@ public class PolizCreator {
     }
 
     private boolean isKeyword(String name) {
-        return name.equals("for") || name.equals("to") || name.equals("by") || name.equals("do")|| name.equals("while")|| name.equals("rof") || name.equals("if") || name.equals("then") || name.equals("fi") || name.equals("cout") || name.equals("cin") || name.equals("@") || name.equals("?") || name.equals(":");
+        return name.equals("for") || name.equals("to") || name.equals("by") || name.equals("do")|| name.equals("while")|| name.equals("rof") || name.equals("if") || name.equals("then") || name.equals("fi") || name.equals("cout") || name.equals("cin") || name.equals("@") || name.equals("?") || name.equals(":") || name.equals("(") || name.equals(")") || name.equals("[") || name.equals("]");
     }
 
     private void makePolizFromOperation() {
@@ -295,6 +298,9 @@ public class PolizCreator {
     }
 
     private boolean lastStackOperationHasLessPriority(String name, String peek) {
+//        if(peek.equals("=") &&  ){
+//
+//        }
         return this.priorityTable.getPriorities().get(name) < this.priorityTable.getPriorities().get(peek);
 
     }
